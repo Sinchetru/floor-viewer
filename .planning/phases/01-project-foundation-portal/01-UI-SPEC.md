@@ -70,13 +70,13 @@ All sizes use `font-family: system-ui` — no custom typeface.
 | Role | Size | Weight | Line Height |
 |------|------|--------|-------------|
 | Body | 14px | 400 (regular) | 1.5 |
-| Label | 14px | 500 (medium) | 1.4 |
+| Label | 14px | 600 (semibold) | 1.4 |
 | Heading | 20px | 600 (semibold) | 1.2 |
 | Display | 28px | 600 (semibold) | 1.2 |
 
 Notes:
 - Body (14px/400): form helper text, tile descriptions, error messages
-- Label (14px/500): form field labels ("E-Mail", "Passwort"), nav items
+- Label (14px/600): form field labels ("E-Mail", "Passwort"), nav items
 - Heading (20px/600): portal section title ("Module"), login card title ("Anmeldung")
 - Display (28px/600): app name or page-level heading — reserved, not rendered in Phase 1
 
@@ -179,7 +179,7 @@ All UI text is German. No English labels in the user-facing UI.
 - Tile grid: `grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6`
 - Tile: `Card` + `CardContent`, min-height 120px, flex column centered
 - Tile icon: lucide-react `LayoutDashboard`, 32px, `text-muted-foreground`
-- Tile label: 14px/500, `mt-3`, `text-foreground`
+- Tile label: 14px/600, `mt-3`, `text-foreground`
 
 ### Floor Viewer Placeholder (`/flaechen`)
 
