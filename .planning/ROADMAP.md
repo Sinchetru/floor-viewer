@@ -6,7 +6,7 @@
 
 ---
 
-## Phase 1 — Project Foundation & Portal
+## Phase 1: Project Foundation & Portal
 
 **Goal:** App runs, user can log in, and lands on a portal page with the Flächenmanagement tile.
 
@@ -26,7 +26,7 @@
 
 ---
 
-## Phase 2 — Payload Collections & CSV Import
+## Phase 2: Payload Collections & CSV Import
 
 **Goal:** RoomGeometry and RoomData collections exist in Payload with working CSV/Excel import.
 
@@ -46,7 +46,7 @@
 
 ---
 
-## Phase 3 — Roles, Permissions & User Management
+## Phase 3: Roles, Permissions & User Management
 
 **Goal:** Four roles enforced. Users see only what their cost center allows. Admin manages users in Payload.
 
@@ -67,7 +67,7 @@
 
 ---
 
-## Phase 4 — Map Rendering Engine
+## Phase 4: Map Rendering Engine
 
 **Goal:** Floor plan polygons render on screen from database path data. No static SVG files.
 
@@ -87,7 +87,7 @@
 
 ---
 
-## Phase 5 — Zoom, Pan & Map Controls
+## Phase 5: Zoom, Pan & Map Controls
 
 **Goal:** User can navigate the map fluidly — zoom, pan, reset.
 
@@ -107,7 +107,7 @@
 
 ---
 
-## Phase 6 — Room Interaction & Tooltip
+## Phase 6: Room Interaction & Tooltip
 
 **Goal:** Hovering a room shows a tooltip with its data. Clicking highlights it. Out-of-scope rooms are inert.
 
@@ -124,7 +124,7 @@
 
 ---
 
-## Phase 7 — Search & Filter
+## Phase 7: Search & Filter
 
 **Goal:** User can find a room by ID and filter the map by floor and room type.
 
@@ -142,7 +142,7 @@
 
 ---
 
-## Phase 8 — Category Coloring & Legend
+## Phase 8: Category Coloring & Legend
 
 **Goal:** User can color rooms by any attribute field using the full palette+picker system from the prototype.
 
@@ -163,7 +163,7 @@
 
 ---
 
-## Phase 9 — Split View
+## Phase 9: Split View
 
 **Goal:** Two floor plan panels side by side, each independently navigable, sharing one color scheme.
 
@@ -180,7 +180,7 @@
 
 ---
 
-## Phase 10 — Print to PDF
+## Phase 10: Print to PDF
 
 **Goal:** User can export the current map view (or both split panels) to a PDF including legend and filter state.
 

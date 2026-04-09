@@ -1,8 +1,8 @@
-# Floor Viewer
+# Campus Platform
 
 ## What This Is
 
-A web application for viewing interactive building floor plans across an entire campus. Users see room polygons rendered dynamically from a database, can search and filter rooms, color them by any attribute category, and compare two buildings side by side. Access to room data and interactions is scoped by user role and cost center.
+A modular web platform for campus facility management. Users log in to a portal and access modules via tiles. The first module — Flächenmanagement — is an interactive floor plan viewer where room polygons are rendered dynamically from a database, users can search and filter rooms, color them by any attribute category, and compare two buildings side by side. Access to room data and interactions is scoped by user role and cost center. New modules can be added to the portal over time.
 
 ## Core Value
 
