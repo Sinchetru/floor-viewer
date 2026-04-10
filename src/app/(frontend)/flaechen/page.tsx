@@ -1,9 +1,7 @@
-//Homepage with login logout
+// This is a placeholder page for the "Flächenmanagement" module, which will be implemented in a later phase of the project.
 import Link from 'next/link'
-import { logout } from '@/lib/actions'
-import { Button } from '@/components/ui/button'
 
-export default function HomePage() {
+export default function FlaechenPage() {
   return (
     <div className="min-h-screen bg-muted flex items-center justify-center">
       <div className="w-full max-w-sm p-8 bg-background rounded-lg shadow-sm">
@@ -11,7 +9,9 @@ export default function HomePage() {
         <p className="text-sm text-muted-foreground mb-4">
           Dieses Modul wird in einer späteren Phase freigeschaltet.
         </p>
-        <Button onClick={logout}>Logout</Button>
+        <Link href="/portal" className="text-sm text-muted-foreground underline">
+          Zurück zum Portal
+        </Link>
       </div>
     </div>
   )
