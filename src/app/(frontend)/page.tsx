@@ -1,18 +1,17 @@
 //Homepage with login logout
-import Link from 'next/link'
-import { logout } from '@/lib/actions'
-import { Button } from '@/components/ui/button'
+import { headers } from 'next/headers'
+import payload from '@/lib/db'
+import LoginForm from '@/components/LoginForm'
+import HelloUser from '@/components/HelloUser'
 
-export default function HomePage() {
+export default async function HomePage() {
+  // ✅ Payload reads the payload-token cookie from the request headers automatically
+  const { user } = await payload.auth({ headers: await headers() })
+
   return (
     <div className="min-h-screen bg-muted flex items-center justify-center">
-      <div className="w-full max-w-sm p-8 bg-background rounded-lg shadow-sm">
-        <h1 className="text-xl font-semibold leading-tight mb-4">Flächenmanagement</h1>
-        <p className="text-sm text-muted-foreground mb-4">
-          Dieses Modul wird in einer späteren Phase freigeschaltet.
-        </p>
-        <Button onClick={logout}>Logout</Button>
-      </div>
+      {/* The frame — always visible, content swaps inside */}
+      {user ? <HelloUser user={user} /> : <LoginForm />}
     </div>
   )
 }

@@ -2,6 +2,9 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import Link from 'next/link'
+
+import { register } from '@/lib/actions'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -9,7 +12,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Loader2 } from 'lucide-react'
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -21,27 +24,18 @@ export default function LoginPage() {
 
     try {
       const formData = new FormData(e.currentTarget)
-
-      const res = await fetch('/api/users/login', {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: formData.get('email'),
-          password: formData.get('password'),
-        }),
+      await register({
+        email: formData.get('email') as string,
+        password_1: formData.get('password_1') as string,
+        password_2: formData.get('password_2') as string,
       })
-
-      if (res.ok) {
-        router.replace('/')
-      } else {
-        const data = await res.json()
-        setError(
-          data?.errors?.[0]?.message ?? 'Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.',
-        )
-      }
-    } catch {
-      setError('Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.')
+      router.replace('/') // ✅ go back to home → cookie exists → HelloUser shows
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.',
+      )
     } finally {
       setLoading(false)
     }
@@ -51,7 +45,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-muted flex items-center justify-center">
       <Card className="w-full max-w-sm p-8 shadow-sm">
         <CardContent>
-          <h1 className="text-xl font-semibold mb-6">Anmeldung</h1>
+          <h1 className="text-xl font-semibold mb-6">Registrierung</h1>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <Label htmlFor="email" className="text-sm font-semibold">
@@ -60,23 +54,42 @@ export default function LoginPage() {
               <Input id="email" name="email" type="email" required autoComplete="email" />
             </div>
             <div>
-              <Label htmlFor="password" className="text-sm font-semibold">
+              <Label htmlFor="password_1" className="text-sm font-semibold">
                 Passwort
               </Label>
               <Input
-                id="password"
-                name="password"
+                id="password_1"
+                name="password_1"
                 type="password"
                 required
-                autoComplete="current-password"
+                autoComplete="new-password"
+              />
+            </div>
+            <div>
+              <Label htmlFor="password_2" className="text-sm font-semibold">
+                Passwort bestätigen
+              </Label>
+              <Input
+                id="password_2"
+                name="password_2"
+                type="password"
+                required
+                autoComplete="new-password"
               />
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Anmelden
+              Registrieren
             </Button>
             {error && <p className="text-sm text-destructive mt-4">{error}</p>}
           </form>
+
+          <p className="text-sm text-center text-muted-foreground mt-4">
+            Bereits ein Konto?{' '}
+            <Link href="/" className="underline font-medium">
+              Anmelden
+            </Link>
+          </p>
         </CardContent>
       </Card>
     </div>

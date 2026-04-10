@@ -10,12 +10,12 @@ export function proxy(request: NextRequest) {
 
   // Если токена нет, перенаправляем на логин
   if (!payloadToken) {
-    return NextResponse.redirect(new URL('/login', request.url))
+    return NextResponse.redirect(new URL('/', request.url))
   }
 
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/', '/flaechen/:path*'],
+  matcher: ['/flaechen/:path*'],
 }
