@@ -123,6 +123,11 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  role: 'admin' | 'fm_user' | 'power_user' | 'user';
+  /**
+   * Kostenstelle — nur für User und Power User
+   */
+  KST?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -240,6 +245,8 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  role?: T;
+  KST?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

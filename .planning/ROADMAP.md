@@ -14,15 +14,22 @@
 
 **Requirements:** PORT-01–05, AUTH-01 (login only)
 
-**Plans:**
-1. Configure Next.js App Router structure — root layout, `/login`, `/portal` routes
-2. Build login page UI with email/password form (Tailwind, German labels)
-3. Wire Payload auth — session handling, protected routes, redirect logic
-4. Build portal landing page with tile grid layout
-5. Build Flächenmanagement tile — navigates to `/flaechen` on click
-6. Ensure tile grid is extensible (adding new tiles requires no layout changes)
+**Architecture decisions (implemented):**
+- Tailwind 4 (not v3) — `@import "tailwindcss"` syntax
+- Server actions for auth (not REST fetch) — `src/lib/actions.ts`
+- `/` is the single entry point: login form when unauthenticated, portal tiles when authenticated (SSR auth check)
+- No separate `/login` or `/portal` routes — homepage handles both states
+- Register page at `/register` → after registration redirects to `/` → shows portal tiles
+- Users collection with roles: admin | fm_user | power_user | user, plus KST field
+- Route protection via `src/middleware.ts` (Next.js middleware — replaces `proxy.ts`)
+- Logout button: top-right corner of the portal header (classic nav pattern)
 
-**Done when:** Unauthenticated users are redirected to login. After login, portal shows the Flächenmanagement tile. Clicking it navigates to the floor viewer route.
+**Plans:**
+1. ~~App shell (Tailwind 4, shadcn, layout, /flaechen placeholder)~~ ✓ Done (01-01)
+2. ~~Auth: server actions, login on /, register page, Users collection~~ ✓ Done (01-02)
+3. Portal layout + middleware: wire middleware.ts, portal header with top-right logout, tile grid, restrict /admin to admin role
+
+**Done when:** Unauthenticated users on / see the login form. Authenticated users on / see the portal with tiles and top-right logout. Clicking Flächenmanagement goes to /flaechen. /flaechen is protected by middleware. /admin is inaccessible to non-admins.
 
 ---
 
@@ -48,22 +55,31 @@
 
 ## Phase 3: Roles, Permissions & User Management
 
-**Goal:** Four roles enforced. Users see only what their cost center allows. Admin manages users in Payload.
+**Goal:** Four roles enforced. Users see only what their KST allows. Admin manages users from the frontend. Non-admins cannot access Payload admin panel.
 
 **Why here:** Visibility scoping must be built into the API layer before any UI queries data.
 
 **Requirements:** AUTH-02–07, ADMIN-01–03
 
-**Plans:**
-1. Add role and cost_center fields to Payload Users collection
-2. Implement API visibility logic — RoomData query returns all rooms, flagged `visible: true/false` based on caller's role and cost_center
-3. Enforce Admin-only access to Payload admin panel
-4. FM role: full visibility, no Payload access
-5. Power User role: visibility where cost_center starts with first 2 digits of user's cost_center
-6. User role: visibility for exact cost_center match only
-7. Admin UI: create/edit/delete users with role and cost_center fields
+**Architecture context:**
+- Users collection already has: role (admin|fm_user|power_user|user) + KST field
+- Admin-only Payload panel access wired in Phase 1 (Plan 03) via `payload.config.ts admin.access`
+- KST (Kostenstelle) replaces cost_center — same concept, German field name
 
-**Done when:** Each role sees the correct subset of rooms as `visible: true`. Out-of-scope rooms are returned but flagged. Payload admin is blocked for non-admin roles.
+**Role visibility rules:**
+- `admin`: full visibility of all rooms, Payload admin access
+- `fm_user`: full visibility of all rooms, frontend only
+- `power_user`: visible rooms where KST starts with same first 2 digits as user's KST
+- `user`: visible rooms where KST exactly matches user's KST
+
+**Plans:**
+1. ~~Role and KST fields on Users collection~~ ✓ Done in Phase 1 (01-02)
+2. ~~Admin-only Payload panel~~ ✓ Done in Phase 1 (01-03)
+3. Frontend user management UI (admin-only): list users, create/edit/delete, assign role + KST
+4. Implement KST-based visibility API — RoomData endpoint returns all rooms flagged `visible: true/false`
+5. Enforce KST visibility on frontend — out-of-scope rooms filtered or flagged in the viewer
+
+**Done when:** Each role sees the correct subset of rooms. Admin can manage all users from the frontend UI (no Payload admin required). Non-admins see only their KST-scoped rooms.
 
 ---
 
