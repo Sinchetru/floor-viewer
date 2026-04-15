@@ -5,6 +5,9 @@ export const RoomGeometry: CollectionConfig = {
   slug: 'room-geometry',
   admin: {
     useAsTitle: 'room_id',
+    components: {
+      beforeListTable: ['@/components/RoomGeometryImport#default'],
+    },
   },
   access: {
     read: admin,

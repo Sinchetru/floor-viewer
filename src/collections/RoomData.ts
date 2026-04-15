@@ -5,6 +5,9 @@ export const RoomData: CollectionConfig = {
   slug: 'room-data',
   admin: {
     useAsTitle: 'room_id',
+    components: {
+      beforeListTable: ['@/components/RoomDataImport#default'],
+    },
   },
   access: {
     read: admin,
