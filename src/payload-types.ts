@@ -69,6 +69,8 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    'room-geometry': RoomGeometry;
+    'room-data': RoomDatum;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +80,8 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'room-geometry': RoomGeometrySelect<false> | RoomGeometrySelect<true>;
+    'room-data': RoomDataSelect<false> | RoomDataSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -168,6 +172,59 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "room-geometry".
+ */
+export interface RoomGeometry {
+  id: number;
+  /**
+   * Join key — Format: 16.11.00.018
+   */
+  room_id: string;
+  /**
+   * SVG d attribute string for the room polygon
+   */
+  path_data: string;
+  /**
+   * Building code — e.g. 1611
+   */
+  building: string;
+  /**
+   * Floor identifier — e.g. 00, 01, U1
+   */
+  floor: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "room-data".
+ */
+export interface RoomDatum {
+  id: number;
+  room_id: string;
+  room_number?: string | null;
+  room_type?: string | null;
+  room_type_code?: string | null;
+  area_sqm?: number | null;
+  din277_code?: string | null;
+  din277_name?: string | null;
+  /**
+   * Kostenstelle — used for visibility scoping
+   */
+  cost_center?: string | null;
+  cost_center_name?: string | null;
+  special_use?: string | null;
+  owner?: string | null;
+  location?: string | null;
+  room_note?: string | null;
+  usage_note?: string | null;
+  usage_from?: string | null;
+  usage_to?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -197,6 +254,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'room-geometry';
+        value: number | RoomGeometry;
+      } | null)
+    | ({
+        relationTo: 'room-data';
+        value: number | RoomDatum;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -281,6 +346,42 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "room-geometry_select".
+ */
+export interface RoomGeometrySelect<T extends boolean = true> {
+  room_id?: T;
+  path_data?: T;
+  building?: T;
+  floor?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "room-data_select".
+ */
+export interface RoomDataSelect<T extends boolean = true> {
+  room_id?: T;
+  room_number?: T;
+  room_type?: T;
+  room_type_code?: T;
+  area_sqm?: T;
+  din277_code?: T;
+  din277_name?: T;
+  cost_center?: T;
+  cost_center_name?: T;
+  special_use?: T;
+  owner?: T;
+  location?: T;
+  room_note?: T;
+  usage_note?: T;
+  usage_from?: T;
+  usage_to?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

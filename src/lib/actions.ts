@@ -31,8 +31,9 @@ export const register = async ({
 
   await payload.create({
     collection: 'users',
-    data: { email: normalizedEmail, password: password_1 },
+    data: { email: normalizedEmail, password: password_1, role: 'user' },
     overrideAccess: false,
+    draft: false,
   })
 
   const loginResult = await payload.login({
