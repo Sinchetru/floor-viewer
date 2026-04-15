@@ -16,7 +16,8 @@ export async function POST(request: Request): Promise<Response> {
     return Response.json({ error: 'No file provided' }, { status: 400 })
   }
 
-  if (!['text/csv', 'text/plain'].includes(file.type)) {
+  const ACCEPTED_TYPES = ['text/csv', 'text/plain', 'application/vnd.ms-excel', 'application/csv', 'application/octet-stream', '']
+  if (!ACCEPTED_TYPES.includes(file.type) && !file.name.endsWith('.csv')) {
     return Response.json({ error: 'Invalid file type. Upload a CSV file.' }, { status: 400 })
   }
 
