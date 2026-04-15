@@ -39,7 +39,15 @@ export default function CsvImportButton({ endpoint, label }: { endpoint: string;
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        gap: '1rem',
+        flexWrap: 'wrap',
+      }}
+    >
       <input
         ref={inputRef}
         type="file"
@@ -62,7 +70,9 @@ export default function CsvImportButton({ endpoint, label }: { endpoint: string;
           {result.errors && result.errors.length > 0 && (
             <ul style={{ margin: 0, color: '#dc2626', paddingLeft: '1rem' }}>
               {result.errors.map((err) => (
-                <li key={err.row}>Zeile {err.row}: {err.reason}</li>
+                <li key={err.row}>
+                  Zeile {err.row}: {err.reason}
+                </li>
               ))}
             </ul>
           )}

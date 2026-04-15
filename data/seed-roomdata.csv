@@ -1,0 +1,6 @@
+Raum-ID,Raumnummer,Raumtyp,Raumtyp-Code,Fläche,DIN277-Code,DIN277-Name,Kostenstelle,Kostenstellen-Name,Sondernutzung,Eigentümer,Standort,Raumnotiz,Nutzungsnotiz,Nutzung-von,Nutzung-bis
+16.11.00.001,11-001,Büro,1.11,24.5,NF1.1,Büroarbeit,110101,Dekanat Gebäude 11,,,Gebäude 11 EG,,,2024-01-01,
+16.11.00.002,11-002,Besprechung,1.31,18.2,NF1.3,Besprechung/Sitzung,110101,Dekanat Gebäude 11,,,Gebäude 11 EG,Kleiner Konferenzraum,,2024-01-01,
+16.11.01.001,11-101,Labor,2.11,45.0,NF2.1,Forschungslabor,110201,Institut für Physik,Sonderausstattung,Universität,Gebäude 11 OG1,Zugang nur mit Schlüssel,,2024-03-01,
+16.12.00.001,12-001,Büro,1.11,22.0,NF1.1,Büroarbeit,120101,Verwaltung Gebäude 12,,,Gebäude 12 EG,,,2024-01-01,
+16.12.00.002,12-002,Werkstatt,3.01,60.0,NF3.0,Werkstatt,120201,Technischer Dienst,,,Gebäude 12 EG,,,2024-01-01,
